@@ -14,6 +14,7 @@ from sklearn.metrics import (
     classification_report,
 )
 from sklearn.inspection import DecisionBoundaryDisplay
+from sklearn.linear_model import SGDClassifier
 
 # dataset = pd.read_csv("dataset.csv")
 
@@ -39,28 +40,38 @@ sc = StandardScaler()
 X_train = sc.fit_transform(X_train)
 X_test = sc.fit_transform(X_test)
 
-classifier = SVC(kernel="poly", C=1, probability=True)
-classifier.fit(X_train, y_train.ravel())
+# classifier = SVC(kernel="poly", C=1, probability=True)
+# classifier.fit(X_train, y_train.ravel())
 
-classifier_mod = SVC(kernel="poly", C=0.01, probability=True)
-classifier_mod.fit(X_train, y_train.ravel())
+# classifier_mod = SVC(kernel="poly", C=0.01, probability=True)
+# classifier_mod.fit(X_train, y_train.ravel())
 
-
-y_pred = classifier.predict(X_test)
-
-
-cl_probabilities = classifier.predict_proba(X_test)
-predict = np.argmax(cl_probabilities, axis=1)
+clf = SGDClassifier(loss="hinge")
+clf.fit(X_train, y_train)
 
 
-cm = confusion_matrix(y_test, y_pred)
-accuracy_score = accuracy_score(y_test, y_pred)
-f1 = f1_score(y_test, y_pred)
+class_weights = {0: 1, 1: 10}
 
-print(cm)
+wclf = SGDClassifier(loss="squared_hinge")
+# wclf = SGDClassifier(loss="hinge", class_weight=class_weights)
+wclf.fit(X_train, y_train)
+
+
+# y_pred = classifier.predict(X_test)
+
+
+# cl_probabilities = classifier.predict_proba(X_test)
+# predict = np.argmax(cl_probabilities, axis=1)
+
+
+# cm = confusion_matrix(y_test, y_pred)
+# accuracy_score = accuracy_score(y_test, y_pred)
+# f1 = f1_score(y_test, y_pred)
+
+# print(cm)
 # print(accuracy_score(y_test, y_pred))
-print("Accuracy score:", accuracy_score)
-print("F1 score:", f1)
+# print("Accuracy score:", accuracy_score)
+# print("F1 score:", f1)
 
 # # Plot decision boundaries
 # fig, ax = plt.subplots(1, 2, figsize=(12, 6))
@@ -87,7 +98,7 @@ plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.Paired, edgecolors="k")
 # plot the decision functions for both classifiers
 ax = plt.gca()
 disp = DecisionBoundaryDisplay.from_estimator(
-    classifier,
+    clf,
     X,
     plot_method="contour",
     colors="green",
@@ -98,7 +109,7 @@ disp = DecisionBoundaryDisplay.from_estimator(
 )
 
 disp_mod = DecisionBoundaryDisplay.from_estimator(
-    classifier_mod,
+    wclf,
     X,
     plot_method="contour",
     colors="red",
