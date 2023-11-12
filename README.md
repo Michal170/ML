@@ -1,3 +1,3 @@
 # ML
 
-Projekt z Uczenia Maszyn realizowany w ramch studiów magisterskich.
+Projekt z Uczenia Maszyn realizowany w ramach studiów magisterskich.
