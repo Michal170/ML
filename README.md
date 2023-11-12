@@ -1,2 +1,3 @@
 # ML
-Machine Learning project
+
+Projekt z Uczenia Maszyn realizowany w ramch studiów magisterskich.
