@@ -20,7 +20,7 @@ from sklearn.linear_model import SGDClassifier
 
 X, y = datasets.make_classification(
     n_features=2,  # liczba atrybutów zbioru
-    n_samples=5000,  # liczba generowanych wzorców
+    n_samples=4000,  # liczba generowanych wzorców
     n_informative=2,  # liczba atrybutów informatywnych, tych które zawierają informacje przydatne dla klasyfikacji
     n_repeated=0,  # liczba atrybutów powtórzonych, czyli zduplikowanych kolumn
     n_redundant=0,  # liczba atrybutów nadmiarowych
