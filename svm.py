@@ -39,8 +39,11 @@ sc = StandardScaler()
 X_train = sc.fit_transform(X_train)
 X_test = sc.fit_transform(X_test)
 
-classifier = SVC(kernel="linear", C=1.0, probability=True)
+classifier = SVC(kernel="poly", C=1, probability=True)
 classifier.fit(X_train, y_train.ravel())
+
+classifier_mod = SVC(kernel="poly", C=0.01, probability=True)
+classifier_mod.fit(X_train, y_train.ravel())
 
 
 y_pred = classifier.predict(X_test)
@@ -59,25 +62,57 @@ print(cm)
 print("Accuracy score:", accuracy_score)
 print("F1 score:", f1)
 
-# Plot decision boundaries
-fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+# # Plot decision boundaries
+# fig, ax = plt.subplots(1, 2, figsize=(12, 6))
 
-# Real labels
-plot_decision_regions(X_test, y_test.ravel(), clf=classifier, ax=ax[0], legend=2)
-ax[0].set_xlabel("Feature 0")
-ax[0].set_ylabel("Feature 1")
-ax[0].set_title("True Labels")
-ax[0].set_xlim(-4, 4)
-ax[0].set_ylim(-4, 4)
+# # Real labels
+# plot_decision_regions(X_test, y_test.ravel(), clf=classifier, ax=ax[0], legend=2)
+# ax[0].set_xlabel("Feature 0")
+# ax[0].set_ylabel("Feature 1")
+# ax[0].set_title("True Labels")
+# ax[0].set_xlim(-4, 4)
+# ax[0].set_ylim(-4, 4)
 
-# Predicted labels
-plot_decision_regions(X_test, y_pred, clf=classifier, ax=ax[1], legend=2)
-ax[1].set_xlabel("Feature 0")
-ax[1].set_ylabel("Feature 1")
-ax[1].set_title(f"Predicted Labels \n F1= {round(f1, 3)}")
-ax[1].set_xlim(-4, 4)
-ax[1].set_ylim(-4, 4)
+# # Predicted labels
+# plot_decision_regions(X_test, y_pred, clf=classifier, ax=ax[1], legend=2)
+# ax[1].set_xlabel("Feature 0")
+# ax[1].set_ylabel("Feature 1")
+# ax[1].set_title(f"Predicted Labels \n F1= {round(f1, 3)}")
+# ax[1].set_xlim(-4, 4)
+# ax[1].set_ylim(-4, 4)
 
+
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.Paired, edgecolors="k")
+
+# plot the decision functions for both classifiers
+ax = plt.gca()
+disp = DecisionBoundaryDisplay.from_estimator(
+    classifier,
+    X,
+    plot_method="contour",
+    colors="green",
+    levels=[0],
+    alpha=0.5,
+    linestyles=["-"],
+    ax=ax,
+)
+
+disp_mod = DecisionBoundaryDisplay.from_estimator(
+    classifier_mod,
+    X,
+    plot_method="contour",
+    colors="red",
+    levels=[0],
+    alpha=0.5,
+    linestyles=["-"],
+    ax=ax,
+)
+
+plt.legend(
+    [disp.surface_.collections[0], disp_mod.surface_.collections[0]],
+    ["green - non weighted", "red - weighted"],
+    loc="upper right",
+)
 
 # snfig, ax = plt.subplots()
 # ax.bar(["F1 Score"], [f1], color=["skyblue"])
