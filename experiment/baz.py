@@ -9,6 +9,7 @@ from function import calculate_class_weights, calculate_class_weights_2
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
+# DATASETS = ["datasets/haberman.csv"]
 DATASETS = ["datasets/haberman.csv", "datasets/dataset.csv", "datasets/diabetes.csv"]
 
 CLASSIFIERS = [
@@ -20,7 +21,8 @@ CLASSIFIERS = [
     ),
 ]
 
-rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=5, random_state=42)
+rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=1, random_state=42)
+# rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=5, random_state=42)
 scores = np.zeros(shape=(len(DATASETS), len(CLASSIFIERS), 2 * 5))
 f1_metrics = np.zeros(shape=(len(DATASETS), len(CLASSIFIERS), 2 * 5))
 
@@ -65,7 +67,9 @@ for est_idx, est in tqdm(enumerate(CLASSIFIERS), desc="tqdm() Progress Bar"):
 
             if X.shape[1] == 2:
                 plt.scatter(X[:, 0], X[:, 1], c=y, cmap="coolwarm", marker="o")
-                plt.title(f"Dataset {ds_idx + 1} - Classifier {est_idx + 1}")
+                plt.title(
+                    f"Dataset {DATASETS[ds_idx] } - Classifier {CLASSIFIERS[est_idx]}"
+                )
 
                 h = 0.02
                 x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
