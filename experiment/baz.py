@@ -21,8 +21,7 @@ CLASSIFIERS = [
     ),
 ]
 
-rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=1, random_state=42)
-# rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=5, random_state=42)
+rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=5, random_state=42)
 scores = np.zeros(shape=(len(DATASETS), len(CLASSIFIERS), 2 * 5))
 f1_metrics = np.zeros(shape=(len(DATASETS), len(CLASSIFIERS), 2 * 5))
 
