@@ -12,14 +12,18 @@ from function import (
 )
 import matplotlib.pyplot as plt
 from tqdm import tqdm
+from sklearn.preprocessing import StandardScaler
 
 DATASETS = [
-    # "datasets/haberman.csv",
-    # "datasets/dataset.csv",
-    "datasets/diabetes.csv"
-    # "datasets/glass.csv",
+    "datasets/haberman.csv",
+    "datasets/dataset.csv",
+    "datasets/diabetes.csv",
+    "datasets/glass.csv",
+    "datasets/vehicle1.csv",
+    "datasets/poker-8_vs_6.csv",
 ]
-
+CLASSIFIERS_names = ["SVM", "own_1", "own_2"]
+# CLASSIFIERS_names = ["SVM"]
 CLASSIFIERS = [
     SVC(kernel="linear", random_state=100),
     SVC(
@@ -61,7 +65,9 @@ for est_idx, est in tqdm(enumerate(CLASSIFIERS), desc="tqdm() Progress Bar"):
         )
         X = dataset.iloc[:, [0, 1]].values
         y = dataset.iloc[:, -1].values
-        # print(y)
+
+        scaler = StandardScaler()
+        X = scaler.fit_transform(X)
 
         for fold_idx, (train, test) in enumerate(rskf.split(X, y)):
             clf = clone(est)
@@ -86,7 +92,8 @@ for est_idx, est in tqdm(enumerate(CLASSIFIERS), desc="tqdm() Progress Bar"):
             if X.shape[1] == 2:
                 plt.scatter(X[:, 0], X[:, 1], c=y, cmap="coolwarm", marker="o")
                 plt.title(
-                    f"Dataset {DATASETS[ds_idx] } - Classifier {CLASSIFIERS[est_idx]}"
+                    f"Dataset {DATASETS[ds_idx] } - Classifier {CLASSIFIERS_names[est_idx]}"
+                    # f"Dataset {DATASETS[ds_idx] } - Classifier {CLASSIFIERS[est_idx]}"
                 )
 
                 h = 0.02
