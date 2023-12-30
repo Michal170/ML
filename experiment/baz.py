@@ -3,6 +3,7 @@ from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn.metrics import accuracy_score, balanced_accuracy_score
 from sklearn.base import clone
 import pandas as pd
+import os
 from sklearn.svm import SVC
 from sklearn.metrics import f1_score
 from function import (
@@ -23,23 +24,19 @@ DATASETS = [
     "datasets/poker-8_vs_6.csv",
 ]
 CLASSIFIERS_names = ["SVM", "own_1", "own_2"]
-# CLASSIFIERS_names = ["SVM"]
 CLASSIFIERS = [
-    SVC(kernel="linear", random_state=100),
+    SVC(kernel="linear", random_state=100, class_weight="balanced"),
     SVC(
         kernel="linear",
-        class_weight="balanced",
         random_state=100,
     ),
     SVC(
         kernel="linear",
-        class_weight="balanced",
         random_state=100,
     ),
 ]
 
 rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=5, random_state=42)
-# rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=5, random_state=42)
 scores = np.zeros(shape=(len(DATASETS), len(CLASSIFIERS), 2 * 5))
 f1_metrics = np.zeros(shape=(len(DATASETS), len(CLASSIFIERS), 2 * 5))
 
@@ -52,7 +49,7 @@ def choose_class_weight_function(est_idx):
 
 
 plt.figure(figsize=(30, 10 * len(DATASETS)))
-for est_idx, est in tqdm(enumerate(CLASSIFIERS), desc="tqdm() Progress Bar"):
+for est_idx, est in tqdm(enumerate(CLASSIFIERS), desc="Progress Bar"):
     for ds_idx, dataset_filename in enumerate(DATASETS):
         plt.subplot(
             len(DATASETS), len(CLASSIFIERS), ds_idx * len(CLASSIFIERS) + est_idx + 1
@@ -72,9 +69,6 @@ for est_idx, est in tqdm(enumerate(CLASSIFIERS), desc="tqdm() Progress Bar"):
         for fold_idx, (train, test) in enumerate(rskf.split(X, y)):
             clf = clone(est)
 
-            # class_weight_function = choose_class_weight_function(est_idx)
-            # class_weights = class_weight_function(y[train])
-
             if est_idx == 1:
                 clf.set_params(class_weight=calculate_class_weights(y[train]))
             elif est_idx == 2:
@@ -93,7 +87,6 @@ for est_idx, est in tqdm(enumerate(CLASSIFIERS), desc="tqdm() Progress Bar"):
                 plt.scatter(X[:, 0], X[:, 1], c=y, cmap="coolwarm", marker="o")
                 plt.title(
                     f"Dataset {DATASETS[ds_idx] } - Classifier {CLASSIFIERS_names[est_idx]}"
-                    # f"Dataset {DATASETS[ds_idx] } - Classifier {CLASSIFIERS[est_idx]}"
                 )
 
                 h = 0.02
@@ -110,7 +103,23 @@ for est_idx, est in tqdm(enumerate(CLASSIFIERS), desc="tqdm() Progress Bar"):
                 plt.ylabel("Feature 2")
 
     plt.tight_layout()
+results_directory = "results"
+os.makedirs(results_directory, exist_ok=True)
+plt.savefig(os.path.join(results_directory, "result.png"))
 
-plt.savefig("result.png")
-np.save("scores", scores)
-np.save("f1_result", f1_metrics)
+np.save(os.path.join(results_directory, "scores.npy"), scores)
+
+with open(os.path.join(results_directory, "scores.txt"), "w") as outfile:
+    outfile.write("# Array shape: {0}\n".format(scores.shape))
+
+    for data_slice in scores:
+        np.savetxt(outfile, data_slice, fmt="%-7.2f")
+
+        outfile.write("# New slice\n")
+np.save(os.path.join(results_directory, "scores"), scores)
+with open(os.path.join(results_directory, "f1_result.txt"), "w") as outfile:
+    outfile.write("# Array shape: {0}\n".format(f1_metrics.shape))
+    for data_slice in f1_metrics:
+        np.savetxt(outfile, data_slice, fmt="%-7.2f")
+        outfile.write("# New slice\n")
+np.save(os.path.join(results_directory, "f1_result"), f1_metrics)

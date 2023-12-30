@@ -2,22 +2,30 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.cluster import DBSCAN
 from sklearn import datasets
+import pandas as pd
 
 # Załaduj dane (możesz dostosować to do swojego zestawu danych)
 # iris = datasets.load_iris()
 # X = iris.data[:, :2]  # Weź tylko pierwsze dwie cechy dla prostoty
-X, y = datasets.make_classification(
-    n_features=2,  # liczba atrybutów zbioru
-    n_samples=300,  # liczba generowanych wzorców
-    n_informative=2,  # liczba atrybutów informatywnych, tych które zawierają informacje przydatne dla klasyfikacji
-    n_repeated=0,  # liczba atrybutów powtórzonych, czyli zduplikowanych kolumn
-    n_redundant=0,  # liczba atrybutów nadmiarowych
-    flip_y=0.08,  # poziom szumu
-    random_state=100,  # ziarno losowości, pozwala na wygenerowanie dokładnie tego samego zbioru w każdym powtórzeniu
-    n_classes=2,  # liczba klas problemu
-    weights=[0.8, 0.2],
+# X, y = datasets.make_classification(
+#     n_features=2,  # liczba atrybutów zbioru
+#     n_samples=300,  # liczba generowanych wzorców
+#     n_informative=2,  # liczba atrybutów informatywnych, tych które zawierają informacje przydatne dla klasyfikacji
+#     n_repeated=0,  # liczba atrybutów powtórzonych, czyli zduplikowanych kolumn
+#     n_redundant=0,  # liczba atrybutów nadmiarowych
+#     flip_y=0.08,  # poziom szumu
+#     random_state=100,  # ziarno losowości, pozwala na wygenerowanie dokładnie tego samego zbioru w każdym powtórzeniu
+#     n_classes=2,  # liczba klas problemu
+#     weights=[0.8, 0.2],
+# )
+dataset = pd.read_csv(
+    "datasets/dataset.csv",
+    # "datasets/glass.csv",
+    sep=";",
+    skiprows=1,
 )
-
+X = dataset.iloc[:, [0, 1]].values
+y = dataset.iloc[:, -1].values
 # Ustaw DBSCAN
 dbscan = DBSCAN(eps=0.3, min_samples=2)
 clusters = dbscan.fit_predict(X)
@@ -37,12 +45,11 @@ noise_samples = np.column_stack((X[noise_points], y[noise_points]))
 count = np.bincount(y[noise_points])
 print(sum(count))
 print(count)
-
-dict = {0: sum(count) / count[0], 1: 2 * (sum(count) / count[1])}
+dict = {0: 0.3, 1: 0.7}
+# dict = {0: sum(count) / count[0], 1: 2 * (sum(count) / count[1])}
 print(dict)
 
 # Wyświetl wyniki
-plt.figure(figsize=(8, 6))
 
 # Wykres dla przypisanych klastrów
 for color in unique_colors:

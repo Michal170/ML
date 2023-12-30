@@ -71,7 +71,7 @@ def calculate_class_weights_3(X, y):
         count_1 = 1
 
     dict = {
-        0: 0.1 * sum(((count) / count_0) * ((count) / count_0)),
+        0: 0.05 * sum(((count) / count_0) * ((count) / count_0)),
         1: ((sum(count) / count_1) * (sum(count) / count_1)),
     }
 
