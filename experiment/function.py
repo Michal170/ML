@@ -7,7 +7,7 @@ def calculate_class_weights(y):
     y = np.array(y).ravel()
     class_counts = np.bincount(y)
     n_classes = len(np.unique(y))
-    class_weights = len(y) / (n_classes * class_counts)
+    class_weights = len(y) / (n_classes * class_counts * class_counts)
     return {
         class_label: class_weights[class_label]
         for class_label in range(len(class_counts))
