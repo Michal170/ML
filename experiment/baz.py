@@ -22,6 +22,8 @@ DATASETS = [
     "datasets/glass.csv",
     "datasets/vehicle1.csv",
     "datasets/poker-8_vs_6.csv",
+    "datasets/yeast6.csv",
+    "datasets/yeast4.csv",
 ]
 CLASSIFIERS_names = ["SVM", "own_1", "own_2"]
 CLASSIFIERS = [
