@@ -51,16 +51,6 @@ scores = np.zeros(shape=(len(DATASETS), len(CLASSIFIERS), 2 * 5))
 f1_metrics = np.zeros(shape=(len(DATASETS), len(CLASSIFIERS), 2 * 5))
 
 
-# def choose_class_weight_function(est_idx):
-#     print(est_idx)
-#     if est_idx == 1:
-#         return calculate_class_weights
-#     elif est_idx == 2:
-#         return calculate_class_weights_3
-#     elif est_idx == 3:
-#         return calculate_class_weights_4
-
-
 plt.figure(figsize=(30, 10 * len(DATASETS)))
 for est_idx, est in tqdm(enumerate(CLASSIFIERS), desc="Progress Bar"):
     for ds_idx, dataset_filename in enumerate(DATASETS):

@@ -14,15 +14,15 @@ DATASETS = [
     # "poker-8_vs_6.csv",
     # "yeast6.csv",
     # "yeast4.csv",
-    "datasets/haberman.csv",
-    "datasets/diabetes.csv",
-    # "datasets/dataset.csv",
-    "datasets/glass.csv",
-    "datasets/vehicle1.csv",
-    "datasets/poker-8_vs_6.csv",
-    "datasets/poker-8-9_vs_5.csv",
-    "datasets/yeast6.csv",
-    "datasets/yeast4.csv",
+    "haberman.csv",
+    "diabetes.csv",
+    # "dataset.csv",
+    "glass.csv",
+    "vehicle1.csv",
+    "poker-8_vs_6.csv",
+    "poker-8-9_vs_5.csv",
+    "yeast6.csv",
+    "yeast4.csv",
 ]
 CLASSIFIERS_names = ["SVM", "SVM_balanced", "SVM_dbscan", "SVM_optics"]
 
@@ -75,14 +75,16 @@ print(table_f1, "\n\n", table_score)
 
 
 data = []
-# print("\nT-TEST:")
+print("\nT-TEST:")
 for i in range(len(DATASETS)):
     row_data = [DATASETS[i]]
 
-    result = ttest_rel(scores[i, 0, :], scores[i, 1, :])
     # result = ttest_rel(scores[i, 0, :], scores[i, 1, :])
-    result_2 = ttest_rel(scores[i, 0, :], scores[i, 2, :])
     # result_2 = ttest_rel(scores[i, 0, :], scores[i, 2, :])
+    # result_3 = ttest_rel(scores[i, 0, :], scores[i, 3, :])
+    result = ttest_rel(f1[i, 0, :], f1[i, 1, :])
+    result_2 = ttest_rel(f1[i, 0, :], f1[i, 2, :])
+    result_3 = ttest_rel(f1[i, 0, :], f1[i, 3, :])
 
     row_data.extend(
         [
@@ -90,18 +92,28 @@ for i in range(len(DATASETS)):
             f"{round(result[1],8)} | {result.pvalue < 0.05}",
             f"{round(result_2[0],3)} | {result_2.statistic > 0}",
             f"{round(result_2[1],8)} | {result_2.pvalue < 0.05}",
+            f"{round(result_3[0],3)} | {result_3.statistic > 0}",
+            f"{round(result_3[1],8)} | {result_3.pvalue < 0.05}",
         ]
     )
 
     data.append(row_data)
 
-headers = ["Dataset", "own_1 st", "own_1 p value", "own_2 st", "own_2 p value"]
+headers = [
+    "Dataset \\ SVC with:",
+    "balanced statistic",
+    "balanced p_value",
+    "dbscan statistic",
+    "dbscan p_value",
+    "optics statistic",
+    "optics p_value",
+]
 for classifier in CLASSIFIERS_names[:-1]:
     headers.extend([f"{classifier}"])
 
 table = tabulate(data, headers, tablefmt="grid")
 
-# print(table)
+print(table)
 
 tables = table_f1 + "\n\n" + table_score + "\n\n" + table
 
