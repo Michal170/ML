@@ -6,16 +6,25 @@ import pandas as pd
 
 
 DATASETS = [
-    "haberman.csv",
-    "dataset.csv",
-    "diabetes.csv",
-    "glass.csv",
-    "vehicle1.csv",
-    "poker-8_vs_6.csv",
-    "yeast6.csv",
-    "yeast4.csv",
+    # "haberman.csv",
+    # # "dataset.csv",
+    # "diabetes.csv",
+    # "glass.csv",
+    # "vehicle1.csv",
+    # "poker-8_vs_6.csv",
+    # "yeast6.csv",
+    # "yeast4.csv",
+    "datasets/haberman.csv",
+    "datasets/diabetes.csv",
+    # "datasets/dataset.csv",
+    "datasets/glass.csv",
+    "datasets/vehicle1.csv",
+    "datasets/poker-8_vs_6.csv",
+    "datasets/poker-8-9_vs_5.csv",
+    "datasets/yeast6.csv",
+    "datasets/yeast4.csv",
 ]
-CLASSIFIERS_names = ["SVM", "own_1", "own_2"]
+CLASSIFIERS_names = ["SVM", "SVM_balanced", "SVM_dbscan", "SVM_optics"]
 
 scores = np.load("results/scores.npy")
 f1 = np.load("results/f1_result.npy")
@@ -25,7 +34,7 @@ print(np.shape(f1))
 table_f1 = tabulate(
     np.mean(f1, axis=-1),
     tablefmt="grid",
-    headers=["f1", "SVM", "SVM_weights", "SVM_dbscan"],
+    headers=["Metryka f1", "SVM", "SVM_balanced", "SVM_dbscan", "SVM_optics"],
     # showindex=["glasses"],
     # showindex=[
     #     "haberman",
@@ -43,7 +52,7 @@ table_f1 = tabulate(
 table_score = tabulate(
     np.mean(scores, axis=-1),
     tablefmt="grid",
-    headers=["score", "SVM", "SVM_weights", "SVM_dbscan"],
+    headers=["Score", "SVM", "SVM_balanced", "SVM_dbscan", "SVM_optics"],
     # showindex=["glasses"],
     showindex=DATASETS,
 )
@@ -66,7 +75,7 @@ print(table_f1, "\n\n", table_score)
 
 
 data = []
-print("\nT-TEST:")
+# print("\nT-TEST:")
 for i in range(len(DATASETS)):
     row_data = [DATASETS[i]]
 
@@ -92,7 +101,7 @@ for classifier in CLASSIFIERS_names[:-1]:
 
 table = tabulate(data, headers, tablefmt="grid")
 
-print(table)
+# print(table)
 
 tables = table_f1 + "\n\n" + table_score + "\n\n" + table
 
@@ -100,8 +109,6 @@ tables = table_f1 + "\n\n" + table_score + "\n\n" + table
 results_directory = "results"
 os.makedirs(results_directory, exist_ok=True)
 
-# with open("output.txt", "w") as file:
-#     file.write(tables)
 
 output_file_path = os.path.join(results_directory, "output.txt")
 with open(output_file_path, "w") as file:

@@ -9,7 +9,8 @@ from sklearn.metrics import f1_score
 from function import (
     calculate_class_weights,
     calculate_class_weights_2,
-    calculate_class_weights_3,
+    calculate_class_weights_dbscan,
+    calculate_class_weights_optics,
 )
 import matplotlib.pyplot as plt
 from tqdm import tqdm
@@ -17,17 +18,23 @@ from sklearn.preprocessing import StandardScaler
 
 DATASETS = [
     "datasets/haberman.csv",
-    "datasets/dataset.csv",
     "datasets/diabetes.csv",
+    # "datasets/dataset.csv",
     "datasets/glass.csv",
     "datasets/vehicle1.csv",
     "datasets/poker-8_vs_6.csv",
+    "datasets/poker-8-9_vs_5.csv",
     "datasets/yeast6.csv",
     "datasets/yeast4.csv",
 ]
-CLASSIFIERS_names = ["SVM", "own_1", "own_2"]
+CLASSIFIERS_names = ["SVM", "SVM_balanced", "SVM_dbscan", "SVM_optics"]
 CLASSIFIERS = [
-    SVC(kernel="linear", random_state=100, class_weight="balanced"),
+    SVC(kernel="linear", random_state=100),
+    # SVC(kernel="linear", random_state=100, class_weight="balanced"),
+    SVC(
+        kernel="linear",
+        random_state=100,
+    ),
     SVC(
         kernel="linear",
         random_state=100,
@@ -39,15 +46,19 @@ CLASSIFIERS = [
 ]
 
 rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=5, random_state=42)
+# rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=5, random_state=42)
 scores = np.zeros(shape=(len(DATASETS), len(CLASSIFIERS), 2 * 5))
 f1_metrics = np.zeros(shape=(len(DATASETS), len(CLASSIFIERS), 2 * 5))
 
 
-def choose_class_weight_function(est_idx):
-    if est_idx == 1:
-        return calculate_class_weights
-    else:
-        return calculate_class_weights_3
+# def choose_class_weight_function(est_idx):
+#     print(est_idx)
+#     if est_idx == 1:
+#         return calculate_class_weights
+#     elif est_idx == 2:
+#         return calculate_class_weights_3
+#     elif est_idx == 3:
+#         return calculate_class_weights_4
 
 
 plt.figure(figsize=(30, 10 * len(DATASETS)))
@@ -75,8 +86,13 @@ for est_idx, est in tqdm(enumerate(CLASSIFIERS), desc="Progress Bar"):
                 clf.set_params(class_weight=calculate_class_weights(y[train]))
             elif est_idx == 2:
                 clf.set_params(
-                    class_weight=calculate_class_weights_3(X[train], y[train])
+                    class_weight=calculate_class_weights_dbscan(X[train], y[train])
                 )
+            elif est_idx == 3:
+                clf.set_params(
+                    class_weight=calculate_class_weights_optics(X[train], y[train])
+                )
+
             clf.fit(X[train], y[train])
             y_pred = clf.predict(X[test])
 
