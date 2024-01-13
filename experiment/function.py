@@ -30,7 +30,6 @@ def calculate_class_weights_2(y):
 def calculate_class_weights_dbscan(X, y):
     dbscan = DBSCAN(eps=0.5, min_samples=2)
     clusters = dbscan.fit_predict(X)
-    # unique_colors = np.unique(y)
     noise_points = clusters == -1
     count = np.bincount(y[noise_points])
     unique_labels = set(clusters)
@@ -61,7 +60,6 @@ def calculate_class_weights_dbscan(X, y):
     plt.xlabel("Feature 1")
     plt.ylabel("Feature 2")
     plt.legend()
-    # plt.show()
     results_directory = "results"
     plt.savefig(os.path.join(results_directory, "result_dbscan.png"))
 
@@ -119,7 +117,6 @@ def calculate_class_weights_optics(X, y):
     plt.xlabel("Feature 1")
     plt.ylabel("Feature 2")
     plt.legend()
-    # plt.show()
     results_directory = "results"
     plt.savefig(os.path.join(results_directory, "result_optics.png"))
 

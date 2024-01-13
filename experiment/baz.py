@@ -17,20 +17,18 @@ from tqdm import tqdm
 from sklearn.preprocessing import StandardScaler
 
 DATASETS = [
-    "datasets/haberman.csv",
-    "datasets/diabetes.csv",
-    # "datasets/dataset.csv",
     "datasets/glass.csv",
+    "datasets/diabetes.csv",
+    "datasets/haberman.csv",
     "datasets/vehicle1.csv",
-    "datasets/poker-8_vs_6.csv",
-    "datasets/poker-8-9_vs_5.csv",
-    "datasets/yeast6.csv",
     "datasets/yeast4.csv",
+    "datasets/yeast6.csv",
+    "datasets/poker-8-9_vs_5.csv",
+    "datasets/poker-8_vs_6.csv",
 ]
 CLASSIFIERS_names = ["SVM", "SVM_balanced", "SVM_dbscan", "SVM_optics"]
 CLASSIFIERS = [
     SVC(kernel="linear", random_state=100),
-    # SVC(kernel="linear", random_state=100, class_weight="balanced"),
     SVC(
         kernel="linear",
         random_state=100,
@@ -46,7 +44,6 @@ CLASSIFIERS = [
 ]
 
 rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=5, random_state=42)
-# rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=5, random_state=42)
 scores = np.zeros(shape=(len(DATASETS), len(CLASSIFIERS), 2 * 5))
 f1_metrics = np.zeros(shape=(len(DATASETS), len(CLASSIFIERS), 2 * 5))
 
