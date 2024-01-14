@@ -34,34 +34,34 @@ def calculate_class_weights_dbscan(X, y):
     count = np.bincount(y[noise_points])
     unique_labels = set(clusters)
     colors = [plt.cm.Spectral(each) for each in np.linspace(0, 1, len(unique_labels))]
-    plt.figure()
-    for i, label in enumerate(unique_labels):
-        if label == -1:
-            plt.scatter(
-                X[noise_points, 0],
-                X[noise_points, 1],
-                c="gray",
-                s=20,
-                alpha=0.5,
-                label="Noise",
-            )
-        else:
-            cluster_points = clusters == label
-            plt.scatter(
-                X[cluster_points, 0],
-                X[cluster_points, 1],
-                c=[colors[i]],
-                s=20,
-                alpha=0.5,
-                label=f"Cluster {label}",
-            )
+    # plt.figure()
+    # for i, label in enumerate(unique_labels):
+    #     if label == -1:
+    #         plt.scatter(
+    #             X[noise_points, 0],
+    #             X[noise_points, 1],
+    #             c="gray",
+    #             s=20,
+    #             alpha=0.5,
+    #             label="Noise",
+    #         )
+    #     else:
+    #         cluster_points = clusters == label
+    #         plt.scatter(
+    #             X[cluster_points, 0],
+    #             X[cluster_points, 1],
+    #             c=[colors[i]],
+    #             s=20,
+    #             alpha=0.5,
+    #             label=f"Cluster {label}",
+    #         )
 
-    plt.title("OPTICS Clustering")
-    plt.xlabel("Feature 1")
-    plt.ylabel("Feature 2")
-    plt.legend()
-    results_directory = "results"
-    plt.savefig(os.path.join(results_directory, "result_dbscan.png"))
+    # plt.title("OPTICS Clustering")
+    # plt.xlabel("Feature 1")
+    # plt.ylabel("Feature 2")
+    # plt.legend()
+    # results_directory = "results"
+    # plt.savefig(os.path.join(results_directory, "result_dbscan.png"))
 
     try:
         count_0 = count[0]
@@ -91,34 +91,34 @@ def calculate_class_weights_optics(X, y):
 
     unique_labels = set(clusters)
     colors = [plt.cm.Spectral(each) for each in np.linspace(0, 1, len(unique_labels))]
-    plt.figure()
-    for i, label in enumerate(unique_labels):
-        if label == -1:
-            plt.scatter(
-                X[noise_points, 0],
-                X[noise_points, 1],
-                c="gray",
-                s=20,
-                alpha=0.5,
-                label="Noise",
-            )
-        else:
-            cluster_points = clusters == label
-            plt.scatter(
-                X[cluster_points, 0],
-                X[cluster_points, 1],
-                c=[colors[i]],
-                s=20,
-                alpha=0.5,
-                label=f"Cluster {label}",
-            )
+    # plt.figure()
+    # for i, label in enumerate(unique_labels):
+    #     if label == -1:
+    #         plt.scatter(
+    #             X[noise_points, 0],
+    #             X[noise_points, 1],
+    #             c="gray",
+    #             s=20,
+    #             alpha=0.5,
+    #             label="Noise",
+    #         )
+    #     else:
+    #         cluster_points = clusters == label
+    #         plt.scatter(
+    #             X[cluster_points, 0],
+    #             X[cluster_points, 1],
+    #             c=[colors[i]],
+    #             s=20,
+    #             alpha=0.5,
+    #             label=f"Cluster {label}",
+    #         )
 
-    plt.title("OPTICS Clustering")
-    plt.xlabel("Feature 1")
-    plt.ylabel("Feature 2")
-    plt.legend()
-    results_directory = "results"
-    plt.savefig(os.path.join(results_directory, "result_optics.png"))
+    # plt.title("OPTICS Clustering")
+    # plt.xlabel("Feature 1")
+    # plt.ylabel("Feature 2")
+    # plt.legend()
+    # results_directory = "results"
+    # plt.savefig(os.path.join(results_directory, "result_optics.png"))
 
     count = np.bincount(y[noise_points])
 

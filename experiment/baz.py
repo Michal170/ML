@@ -43,9 +43,9 @@ CLASSIFIERS = [
     ),
 ]
 
-rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=5, random_state=42)
-scores = np.zeros(shape=(len(DATASETS), len(CLASSIFIERS), 2 * 5))
-f1_metrics = np.zeros(shape=(len(DATASETS), len(CLASSIFIERS), 2 * 5))
+rskf = RepeatedStratifiedKFold(n_splits=5, n_repeats=2, random_state=42)
+scores = np.zeros(shape=(len(DATASETS), len(CLASSIFIERS), 5 * 2))
+f1_metrics = np.zeros(shape=(len(DATASETS), len(CLASSIFIERS), 5 * 2))
 
 
 plt.figure(figsize=(30, 10 * len(DATASETS)))

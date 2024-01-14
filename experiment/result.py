@@ -62,7 +62,7 @@ for i in range(len(CLASSIFIERS_names)):
         data.append(row_data)
     table = tabulate(data, headers, tablefmt="grid")
     os.makedirs("results", exist_ok=True)
-    output_file_path = os.path.join("results", f"output_{i}.txt")
+    output_file_path = os.path.join("results", f"t_test_part_{i}.txt")
     with open(output_file_path, "w") as file:
         file.write(table)
     table_lt = tabulate(data, headers, tablefmt="latex")
@@ -76,6 +76,6 @@ results_directory = "results"
 os.makedirs(results_directory, exist_ok=True)
 
 
-output_file_path = os.path.join(results_directory, "output.txt")
+output_file_path = os.path.join(results_directory, "f1_score.txt")
 with open(output_file_path, "w") as file:
     file.write(tables)
