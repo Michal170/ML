@@ -1,17 +1,17 @@
 +--------------------+-------------------------------+-------------------------------+-------------------------------+
-| Datasets:          | SVM_optics:SVM                | SVM_optics:SVM_balanced       | SVM_optics:SVM_dbscan         |
+| Datasets:          | SVM                           | SVM_balanced                  | SVM_dbscan                    |
 +====================+===============================+===============================+===============================+
-| glass.csv          | 194.746 [True] | 0.0 [True]   | -2.709 [False] | 0.024 [True] | nan [False] | nan [False]     |
+| glass.csv          | 174.883 [True] | 0.0 [True]   | -2.405 [False] | 0.04 [True]  | 0.698 [True] | 0.503 [False]  |
 +--------------------+-------------------------------+-------------------------------+-------------------------------+
-| diabetes.csv       | -3.306 [False] | 0.009 [True] | -5.764 [False] | 0.0 [True]   | -3.187 [False] | 0.011 [True] |
+| diabetes.csv       | -1.417 [False] | 0.19 [False] | -3.945 [False] | 0.003 [True] | 4.013 [True] | 0.003 [True]   |
 +--------------------+-------------------------------+-------------------------------+-------------------------------+
-| haberman.csv       | 169.988 [True] | 0.0 [True]   | 5.473 [True] | 0.0 [True]     | nan [False] | nan [False]     |
+| haberman.csv       | 169.988 [True] | 0.0 [True]   | 5.473 [True] | 0.0 [True]     | 5.995 [True] | 0.0 [True]     |
 +--------------------+-------------------------------+-------------------------------+-------------------------------+
-| vehicle1.csv       | 445.408 [True] | 0.0 [True]   | -4.636 [False] | 0.001 [True] | nan [False] | nan [False]     |
+| vehicle1.csv       | 445.408 [True] | 0.0 [True]   | -4.636 [False] | 0.001 [True] | 1.0 [True] | 0.343 [False]    |
 +--------------------+-------------------------------+-------------------------------+-------------------------------+
-| yeast4.csv         | 81.456 [True] | 0.0 [True]    | -13.603 [False] | 0.0 [True]  | -1.0 [False] | 0.343 [False]  |
+| yeast4.csv         | 81.456 [True] | 0.0 [True]    | -13.603 [False] | 0.0 [True]  | -11.075 [False] | 0.0 [True]  |
 +--------------------+-------------------------------+-------------------------------+-------------------------------+
-| yeast6.csv         | 1859.163 [True] | 0.0 [True]  | -16.581 [False] | 0.0 [True]  | -3.163 [False] | 0.011 [True] |
+| yeast6.csv         | 1859.163 [True] | 0.0 [True]  | -16.581 [False] | 0.0 [True]  | -4.484 [False] | 0.002 [True] |
 +--------------------+-------------------------------+-------------------------------+-------------------------------+
 | poker-8-9_vs_5.csv | 2568.29 [True] | 0.0 [True]   | 1.207 [True] | 0.258 [False]  | nan [False] | nan [False]     |
 +--------------------+-------------------------------+-------------------------------+-------------------------------+
@@ -27,14 +27,14 @@
 
 \begin{tabular}{llll}
 \hline
- Datasets:          & SVM\_optics:SVM                & SVM\_optics:SVM\_balanced       & SVM\_optics:SVM\_dbscan         \\
+ Datasets:          & SVM                           & SVM\_balanced                  & SVM\_dbscan                    \\
 \hline
- glass.csv          & 194.746 [True] | 0.0 [True]   & -2.709 [False] | 0.024 [True] & nan [False] | nan [False]     \\
- diabetes.csv       & -3.306 [False] | 0.009 [True] & -5.764 [False] | 0.0 [True]   & -3.187 [False] | 0.011 [True] \\
- haberman.csv       & 169.988 [True] | 0.0 [True]   & 5.473 [True] | 0.0 [True]     & nan [False] | nan [False]     \\
- vehicle1.csv       & 445.408 [True] | 0.0 [True]   & -4.636 [False] | 0.001 [True] & nan [False] | nan [False]     \\
- yeast4.csv         & 81.456 [True] | 0.0 [True]    & -13.603 [False] | 0.0 [True]  & -1.0 [False] | 0.343 [False]  \\
- yeast6.csv         & 1859.163 [True] | 0.0 [True]  & -16.581 [False] | 0.0 [True]  & -3.163 [False] | 0.011 [True] \\
+ glass.csv          & 174.883 [True] | 0.0 [True]   & -2.405 [False] | 0.04 [True]  & 0.698 [True] | 0.503 [False]  \\
+ diabetes.csv       & -1.417 [False] | 0.19 [False] & -3.945 [False] | 0.003 [True] & 4.013 [True] | 0.003 [True]   \\
+ haberman.csv       & 169.988 [True] | 0.0 [True]   & 5.473 [True] | 0.0 [True]     & 5.995 [True] | 0.0 [True]     \\
+ vehicle1.csv       & 445.408 [True] | 0.0 [True]   & -4.636 [False] | 0.001 [True] & 1.0 [True] | 0.343 [False]    \\
+ yeast4.csv         & 81.456 [True] | 0.0 [True]    & -13.603 [False] | 0.0 [True]  & -11.075 [False] | 0.0 [True]  \\
+ yeast6.csv         & 1859.163 [True] | 0.0 [True]  & -16.581 [False] | 0.0 [True]  & -4.484 [False] | 0.002 [True] \\
  poker-8-9\_vs\_5.csv & 2568.29 [True] | 0.0 [True]   & 1.207 [True] | 0.258 [False]  & nan [False] | nan [False]     \\
  poker-8\_vs\_6.csv   & 21.07 [True] | 0.0 [True]     & 0.927 [True] | 0.378 [False]  & nan [False] | nan [False]     \\
 \hline

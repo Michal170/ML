@@ -35,6 +35,30 @@
 +----+--------------------+---------+----------------+
 
 
+\begin{tabular}{rlrr}
+\hline
+    & Dataset            &   Class &   Sample Count \\
+\hline
+  0 & glass.csv          &       0 &            136 \\
+  1 & glass.csv          &       1 &             76 \\
+  2 & diabetes.csv       &       0 &            500 \\
+  3 & diabetes.csv       &       1 &            267 \\
+  4 & haberman.csv       &       0 &            222 \\
+  5 & haberman.csv       &       1 &             81 \\
+  6 & vehicle1.csv       &       0 &            627 \\
+  7 & vehicle1.csv       &       1 &            216 \\
+  8 & yeast4.csv         &       0 &           1431 \\
+  9 & yeast4.csv         &       1 &             51 \\
+ 10 & yeast6.csv         &       0 &           1447 \\
+ 11 & yeast6.csv         &       1 &             35 \\
+ 12 & poker-8-9\_vs\_5.csv &       0 &           2048 \\
+ 13 & poker-8-9\_vs\_5.csv &       1 &             25 \\
+ 14 & poker-8\_vs\_6.csv   &       0 &           1458 \\
+ 15 & poker-8\_vs\_6.csv   &       1 &             17 \\
+\hline
+\end{tabular}
+
+
 +----+--------------------+-------------------+
 |    |      Dataset       |  Imbalance Ratio  |
 +====+====================+===================+
@@ -54,3 +78,19 @@
 +----+--------------------+-------------------+
 | 7  |     yeast6.csv     |      41.3429      |
 +----+--------------------+-------------------+
+
+
+\begin{tabular}{ccc}
+\hline
+    &      Dataset       &  Imbalance Ratio  \\
+\hline
+ 0  &    diabetes.csv    &      1.87266      \\
+ 1  &     glass.csv      &      1.78947      \\
+ 2  &    haberman.csv    &      2.74074      \\
+ 3  & poker-8-9\_vs\_5.csv &       81.92       \\
+ 4  &  poker-8\_vs\_6.csv  &      85.7647      \\
+ 5  &    vehicle1.csv    &      2.90278      \\
+ 6  &     yeast4.csv     &      28.0588      \\
+ 7  &     yeast6.csv     &      41.3429      \\
+\hline
+\end{tabular}

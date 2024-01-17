@@ -26,6 +26,12 @@ table_f1 = tabulate(
     headers=["Metryka f1", "SVM", "SVM_balanced", "SVM_dbscan", "SVM_optics"],
     showindex=DATASETS,
 )
+table_f1_latex = tabulate(
+    np.mean(f1, axis=-1),
+    tablefmt="latex",
+    headers=["Metryka f1", "SVM", "SVM_balanced", "SVM_dbscan", "SVM_optics"],
+    showindex=DATASETS,
+)
 
 table_score = tabulate(
     np.mean(scores, axis=-1),
@@ -44,7 +50,7 @@ for i in range(len(CLASSIFIERS_names)):
         if i == l:
             continue
         else:
-            headers.append(f"{CLASSIFIERS_names[i]}:{CLASSIFIERS_names[l]}")
+            headers.append(f"{CLASSIFIERS_names[l]}")
     for k in range(len(DATASETS)):
         row_data = [f"{DATASETS[k]}"]
         count = 0
@@ -71,7 +77,7 @@ for i in range(len(CLASSIFIERS_names)):
         file.write(table_lt)
     data = []
 
-tables = table_f1 + "\n\n" + table_score + "\n\n"
+tables = table_f1 + "\n\n" + table_f1_latex + "\n\n" + table_score + "\n\n"
 results_directory = "results"
 os.makedirs(results_directory, exist_ok=True)
 

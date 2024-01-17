@@ -64,11 +64,22 @@ output_file_path = os.path.join("results", f"imbalance_ratios.txt")
 with open(output_file_path, "w") as file:
     file.write(tabulate(all_class_distributions, headers="keys", tablefmt="grid"))
     file.write("\n\n\n")
+    file.write(tabulate(all_class_distributions, headers="keys", tablefmt="latex"))
+    file.write("\n\n\n")
     file.write(
         tabulate(
             imbalance_table,
             headers="keys",
             tablefmt="grid",
+            colalign=("center", "center", "center"),
+        )
+    )
+    file.write("\n\n\n")
+    file.write(
+        tabulate(
+            imbalance_table,
+            headers="keys",
+            tablefmt="latex",
             colalign=("center", "center", "center"),
         )
     )
